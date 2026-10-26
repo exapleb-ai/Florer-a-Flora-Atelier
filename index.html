@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flora Atelier | Taller Floral en Zapopan</title>
+    <!-- Favicon / Logo en pestaña -->
+    <link rel="icon" type="image/png" href="logo.png?v=1">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            wine: '#582025',      /* Borgoña / Vino Profundo */
+                            wineDark: '#3d1519',  /* Tinto / Burgundy Oscuro */
+                            dusty: '#d18c93',     /* Palo de Rosa Claro */
+                            rose: '#e69da5',      /* Rosa Suave */
+                            blush: '#f2cbd0',     /* Rubor Claro */
+                            cream: '#fbf0f2',     /* Crema Rosa */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #3d1519;
+            color: #fbf0f2;
+        }
+
+        .heading-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .glass-nav {
+            background: rgba(61, 21, 25, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .glass-card {
+            background: rgba(88, 32, 37, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(230, 157, 165, 0.25);
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .animate-float {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        .animate-scroll-right {
+            display: flex;
+            width: max-content;
+            animation: scrollRight 30s linear infinite;
+        }
+
+        .animate-scroll-right:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-rose selection:text-brand-wineDark bg-brand-wineDark text-brand-cream">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300 border-b border-brand-rose/20 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo Más Grande y Destacado -->
+                <a href="#inicio" class="flex items-center gap-3.5 group">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-brand-rose/60 bg-brand-wine p-1 shadow-lg group-hover:scale-105 transition-transform flex items-center justify-center">
+                        <img src="logo.png?v=1" alt="Flora Atelier Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='logo.jpg';">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="heading-serif font-bold text-xl sm:text-2xl text-white tracking-wider uppercase">Flora Atelier</span>
+                        <span class="text-[9px] tracking-[0.25em] uppercase text-brand-rose font-semibold">Taller Floral &bull; Since 2018</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-7 text-sm font-medium tracking-wide">
+                    <a href="#inicio" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Inicio</a>
+                    <a href="#nosotros" class="text-brand-cream hover:text-brand-rose transition-colors py-1">¿Quiénes somos?</a>
+                    <a href="#flores" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Flores & Estilos</a>
+                    <a href="#catalogo" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Nuestro Trabajo</a>
+                    <a href="#reseñas" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Reseñas</a>
+                    <a href="#ubicacion" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Ubicación</a>
+                    <a href="#pedidos" class="text-brand-cream hover:text-brand-rose transition-colors py-1">Hacer Pedido</a>
+                </nav>
+
+                <!-- Quick CTA Button -->
+                <div class="hidden sm:flex items-center">
+                    <a href="#pedidos" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-semibold px-5 py-2.5 rounded-full shadow-md transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-xs uppercase tracking-wider">
+                        <i class="fab fa-whatsapp text-sm text-emerald-700"></i>
+                        <span>Pedir Personalizado</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" type="button" class="md:hidden p-2 rounded-xl text-brand-cream hover:text-brand-rose focus:outline-none" aria-label="Abrir Menú">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-wineDark border-b border-brand-rose/20 px-4 pt-3 pb-6 space-y-3 shadow-lg">
+            <a href="#inicio" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Inicio</a>
+            <a href="#nosotros" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">¿Quiénes somos?</a>
+            <a href="#flores" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Flores & Estilos</a>
+            <a href="#catalogo" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Nuestro Trabajo</a>
+            <a href="#reseñas" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Reseñas</a>
+            <a href="#ubicacion" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Ubicación</a>
+            <a href="#pedidos" class="mobile-nav-link block px-3 py-2 rounded-lg text-brand-cream hover:bg-brand-wine font-medium">Realizar Pedido</a>
+            <a href="#pedidos" class="block w-full text-center bg-brand-rose text-brand-wineDark font-bold py-3 rounded-xl shadow-sm text-sm uppercase tracking-wider mt-2">
+                <i class="fab fa-whatsapp mr-2 text-emerald-800"></i> Hacer Pedido
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+
+        <!-- 1. HERO SECTION -->
+        <section id="inicio" class="relative py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-brand-wineDark via-brand-wine to-brand-wineDark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+                        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-wine border border-brand-rose/40 text-brand-blush text-xs font-bold tracking-widest uppercase shadow-xs">
+                            <span class="w-2 h-2 rounded-full bg-brand-rose"></span> Taller Floral en Zapopan
+                        </span>
+                        
+                        <h1 class="heading-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-white leading-tight">
+                            Las flores dicen lo que a veces <span class="italic text-brand-rose">no se puede decir con palabras</span>
+                        </h1>
+                        
+                        <p class="text-brand-cream/90 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                            Cada ramo es hecho a mano, con amor y con diseño. Entregas a domicilio en Zona Real, Zapopan Centro y zonas aledañas.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#pedidos" class="w-full sm:w-auto bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-8 py-4 rounded-full shadow-lg transition-all text-center text-sm uppercase tracking-wider hover:scale-105">
+                                Diseñar Mi Pedido <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                            </a>
+                            <a href="#catalogo" class="w-full sm:w-auto bg-transparent border border-brand-rose/60 hover:border-brand-rose text-brand-cream font-medium px-8 py-4 rounded-full transition-all text-center text-sm uppercase tracking-wider shadow-xs">
+                                Ver Galería
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-rose/20 text-center lg:text-left">
+                            <div>
+                                <p class="heading-serif font-bold text-xl text-white">Hecho a Mano</p>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Atelier Floral</p>
+                            </div>
+                            <div>
+                                <p class="heading-serif font-bold text-xl text-white">Temporada</p>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Siempre Frescas</p>
+                            </div>
+                            <div>
+                                <p class="heading-serif font-bold text-xl text-white">A Domicilio</p>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Zona Real & Zapopan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 relative">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="bg-brand-wine p-3 sm:p-4 rounded-3xl border border-brand-rose/30 shadow-2xl">
+                                <div class="overflow-hidden rounded-2xl relative group aspect-[4/3] bg-brand-wineDark">
+                                    <img src="inicio.png?v=1" alt="Flora Atelier Taller Floral" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700" onerror="this.onerror=null; this.src='https://placehold.co/1200x800/582025/fbf0f2?text=Flora+Atelier+Zapopan';">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-brand-wineDark/80 via-transparent to-transparent"></div>
+                                    <div class="absolute bottom-4 left-4 right-4 text-white p-2">
+                                        <p class="text-xs font-semibold uppercase tracking-widest text-brand-rose">Diseño Floral Exclusivo</p>
+                                        <p class="heading-serif text-xl sm:text-2xl font-light">Zapopan, Jalisco</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="absolute -bottom-6 -left-4 sm:left-4 bg-brand-wine p-3.5 rounded-2xl shadow-xl border border-brand-rose/30 flex items-center gap-3 animate-float hidden sm:flex">
+                                <div class="w-12 h-12 rounded-full bg-brand-wineDark flex items-center justify-center p-1 border border-brand-rose/40">
+                                    <img src="logo.png?v=1" alt="Logo Flora Atelier" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='logo.jpg';">
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-brand-rose uppercase tracking-wider font-semibold">Flora Atelier</p>
+                                    <p class="text-xs font-bold text-white">Garantía Fresca</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT US SECTION -->
+        <section id="nosotros" class="py-16 relative bg-brand-wine/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-rose">Taller Floral Zapopan</span>
+                    <h2 class="heading-serif text-3xl sm:text-4xl font-normal text-white">¿Quiénes somos?</h2>
+                    <div class="w-12 h-0.5 bg-brand-rose mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="glass-card p-8 rounded-3xl space-y-4">
+                        <p class="text-brand-cream text-base leading-relaxed font-light">
+                            Somos <strong class="text-white font-semibold">Flora Atelier</strong>, un taller floral ubicado en Camino Antiguo a Tesistán #23, casi esquina con Av. Guadalajara, Zapopan. Cada ramo es hecho a mano, con amor y con diseño.
+                        </p>
+                        <p class="text-brand-cream text-base leading-relaxed font-light">
+                            Creemos firmemente que las flores dicen lo que a veces no se puede decir con palabras.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-3xl space-y-4 border-l-4 border-l-brand-rose">
+                        <h3 class="heading-serif text-2xl font-bold text-white">Servicio a Domicilio</h3>
+                        <p class="text-brand-cream text-sm leading-relaxed font-light">
+                            Llevamos nuestros diseños florales directo a la puerta de esa persona especial.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1 bg-brand-wine border border-brand-rose/40 rounded-full text-xs text-brand-cream font-medium">Camino Antiguo a Tesistán</span>
+                            <span class="px-3 py-1 bg-brand-wine border border-brand-rose/40 rounded-full text-xs text-brand-cream font-medium">Av. Guadalajara</span>
+                            <span class="px-3 py-1 bg-brand-wine border border-brand-rose/40 rounded-full text-xs text-brand-cream font-medium">Zona Real & Zapopan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FLOWERS & STYLES -->
+        <section id="flores" class="py-16 lg:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-rose">Nuestra Propuesta</span>
+                    <h2 class="heading-serif text-3xl sm:text-4xl font-normal text-white">¿Qué vendemos?</h2>
+                    <div class="w-12 h-0.5 bg-brand-rose mx-auto"></div>
+                    <p class="text-brand-cream/80 text-sm sm:text-base pt-2 font-light">
+                        Flores frescas de temporada, siempre. Trabajamos con lo mejor que hay en cada estación.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full mx-auto overflow-hidden border-2 border-brand-rose/50 p-0.5 bg-white shadow-xs">
+                            <img src="imagen1.jpg?v=1" alt="Flores Frescas" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/582025/fbf0f2?text=Flores+Frescas';">
+                        </div>
+                        <h3 class="heading-serif font-bold text-2xl text-white">Flores de Temporada</h3>
+                        <p class="text-brand-cream/80 text-xs sm:text-sm leading-relaxed font-light">
+                            Tulipanes, rosas, lisianthus, orquídeas, girasoles, gerberas, claveles y más selecciones frescas.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full mx-auto overflow-hidden border-2 border-brand-rose/50 p-0.5 bg-white shadow-xs">
+                            <img src="imagen2.jpg?v=1" alt="Bouquets y Cajas" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/582025/fbf0f2?text=Estilos+En+Tendencia';">
+                        </div>
+                        <h3 class="heading-serif font-bold text-2xl text-white">Diseños en Tendencia</h3>
+                        <p class="text-brand-cream/80 text-xs sm:text-sm leading-relaxed font-light">
+                            Estilo coreano, bouquet romántico, flower box, minimalista, otoñal y referencias de Pinterest e Instagram.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-3xl text-center space-y-4 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-24 h-24 rounded-full mx-auto overflow-hidden border-2 border-brand-rose/50 p-0.5 bg-white shadow-xs">
+                            <img src="imagen3.jpg?v=1" alt="Pedidos Personalizados" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/582025/fbf0f2?text=Atelier+A+Medida';">
+                        </div>
+                        <h3 class="heading-serif font-bold text-2xl text-white">Diseños Personalizados</h3>
+                        <p class="text-brand-cream/80 text-xs sm:text-sm leading-relaxed font-light">
+                            Usted nos dice a quién, por qué y cuánto quiere gastar, y nosotros creamos algo totalmente único.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. GALLERY / OUR WORK -->
+        <section id="catalogo" class="py-16 bg-brand-wine/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-rose">Calidad Precio</span>
+                    <h2 class="heading-serif text-3xl sm:text-4xl font-normal text-white">Nuestro Trabajo</h2>
+                    <div class="w-12 h-0.5 bg-brand-rose mx-auto"></div>
+                    <p class="text-brand-cream/80 text-sm sm:text-base pt-2 font-light">
+                        Toma de referencia el tuyo o haz tu pedido personalizado.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 1.jpg -->
+                    <div class="glass-card rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-white border-b border-brand-rose/20 flex items-center justify-center p-2">
+                                <img src="1.jpg?v=1" alt="Bouquet Sweet" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x450/ffffff/582025?text=Bouquet+Sweet';">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h3 class="heading-serif font-bold text-2xl text-white">Bouquet Sweet</h3>
+                                <p class="text-brand-cream/80 text-xs leading-relaxed font-light">
+                                    Hermosa combinación de Rosas y gerberas, acompañado de follajes y margaritas envueltas en papel impermeable. Ideal para esa persona dulce y tierna.
+                                </p>
+                                <p class="text-[11px] text-brand-rose italic">Colores pueden variar según disponibilidad</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-brand-rose/20 bg-brand-wineDark/80 mt-4">
+                            <span class="heading-serif font-bold text-xl text-white">$950 MXN</span>
+                            <button onclick="selectProduct('Bouquet Sweet')" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-4 py-2 rounded-full transition-all text-xs uppercase tracking-wider">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2.jpg -->
+                    <div class="glass-card rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-white border-b border-brand-rose/20 flex items-center justify-center p-2">
+                                <img src="2.jpg?v=1" alt="Pensé en ti" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x450/ffffff/582025?text=Pense+en+ti';">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h3 class="heading-serif font-bold text-2xl text-white">Pensé en ti</h3>
+                                <p class="text-brand-cream/80 text-xs leading-relaxed font-light">
+                                    Bouquet clásico de 12 rosas. Acompañado de follajes envuelto en papel impermeable.
+                                </p>
+                                <p class="text-[11px] text-brand-rose italic">Color a su elección.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-brand-rose/20 bg-brand-wineDark/80 mt-4">
+                            <span class="heading-serif font-bold text-xl text-white">$480 MXN</span>
+                            <button onclick="selectProduct('Pensé en ti')" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-4 py-2 rounded-full transition-all text-xs uppercase tracking-wider">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3.jpg -->
+                    <div class="glass-card rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-white border-b border-brand-rose/20 flex items-center justify-center p-2">
+                                <img src="3.jpg?v=1" alt="Solo por Bonita" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x450/ffffff/582025?text=Solo+por+Bonita';">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h3 class="heading-serif font-bold text-2xl text-white">Solo por Bonita</h3>
+                                <p class="text-brand-cream/80 text-xs leading-relaxed font-light">
+                                    15 Gerberas en tonos Pastel, acompañando de follajes y gypso envuelto en papel impermeable.
+                                </p>
+                                <p class="text-[11px] text-brand-rose italic font-medium">El favorito de las Girls</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-brand-rose/20 bg-brand-wineDark/80 mt-4">
+                            <span class="heading-serif font-bold text-xl text-white">$920 MXN</span>
+                            <button onclick="selectProduct('Solo por Bonita')" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-4 py-2 rounded-full transition-all text-xs uppercase tracking-wider">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4.jpg -->
+                    <div class="glass-card rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-white border-b border-brand-rose/20 flex items-center justify-center p-2">
+                                <img src="4.jpg?v=1" alt="Tweedia" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x450/ffffff/582025?text=Tweedia';">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h3 class="heading-serif font-bold text-2xl text-white">Tweedia</h3>
+                                <p class="text-brand-cream/80 text-xs leading-relaxed font-light">
+                                    Hermoso atado Coreano con rosas, gerberas, astromelias y florecitas de temporada en color azul celeste.
+                                </p>
+                                <p class="text-[11px] text-brand-rose italic">El más pedido para una graduación o cumpleaños.</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-brand-rose/20 bg-brand-wineDark/80 mt-4">
+                            <span class="heading-serif font-bold text-xl text-white">$780 MXN</span>
+                            <button onclick="selectProduct('Tweedia')" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-4 py-2 rounded-full transition-all text-xs uppercase tracking-wider">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 5.jpg -->
+                    <div class="glass-card rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-white border-b border-brand-rose/20 flex items-center justify-center p-2">
+                                <img src="5.jpg?v=1" alt="Just because" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/600x450/ffffff/582025?text=Just+because';">
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h3 class="heading-serif font-bold text-2xl text-white">Just because</h3>
+                                <p class="text-brand-cream/80 text-xs leading-relaxed font-light">
+                                    ¿Quieres decirle cuanto le amas? Rosas y tulipanes, la combinación perfecta. Diseño de estilo coreano envuelto en papel impermeable. Perfecto para enviar un Te amo.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 flex items-center justify-between border-t border-brand-rose/20 bg-brand-wineDark/80 mt-4">
+                            <span class="heading-serif font-bold text-xl text-white">$2,250 MXN</span>
+                            <button onclick="selectProduct('Just because')" class="bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold px-4 py-2 rounded-full transition-all text-xs uppercase tracking-wider">
+                                Encargar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Card -->
+                    <div class="bg-gradient-to-br from-brand-wine via-brand-wineDark to-black rounded-3xl p-6 flex flex-col justify-between border border-dashed border-brand-rose/50 text-center shadow-lg">
+                        <div class="space-y-3 my-auto">
+                            <div class="w-12 h-12 rounded-full bg-brand-wine text-brand-rose mx-auto flex items-center justify-center text-xl shadow-xs border border-brand-rose/40">
+                                <i class="fas fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="heading-serif text-2xl font-bold text-white">¿Tienes tu propia idea?</h3>
+                            <p class="text-xs text-brand-cream/80 leading-relaxed font-light">Dinos a quién va dirigido, la ocasión y presupuesto para crearlo.</p>
+                        </div>
+                        <button onclick="selectProduct('Tengo mi propio diseño / pedido personalizado')" class="mt-4 bg-brand-rose hover:bg-brand-blush text-brand-wineDark font-bold py-3 px-4 rounded-full transition-all text-xs uppercase tracking-wider shadow-xs">
+                            Crear Pedido Personalizado
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. REVIEWS SECTION -->
+        <section id="reseñas" class="py-16 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-rose">Experiencias Reales</span>
+                    <h2 class="heading-serif text-3xl sm:text-4xl font-normal text-white">Reseñas en Google Maps</h2>
+                    <div class="w-12 h-0.5 bg-brand-rose mx-auto"></div>
+                    
+                    <div class="flex items-center justify-center gap-2 pt-2">
+                        <span class="heading-serif text-3xl font-bold text-white">5.0</span>
+                        <div class="flex text-amber-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-xs text-brand-rose font-medium">(100% Opiniones Positivas)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full overflow-hidden py-4">
+                <div class="animate-scroll-right flex gap-6">
+                    <div class="glass-card w-[320px] sm:w-[380px] p-6 rounded-3xl space-y-4 shadow-md flex-shrink-0 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex text-amber-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-brand-cream/90 text-sm font-light italic leading-relaxed">
+                                "El arreglo superó totalmente mis expectativas. Las flores duraron muchísimo tiempo frescas y el diseño estilo coreano es hermoso. ¡Excelente servicio!"
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-rose/20 flex items-center justify-between text-xs">
+                            <span class="font-bold text-white">Alejandra R.</span>
+                            <span class="text-brand-rose font-medium"><i class="fab fa-google mr-1"></i> Google Maps</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card w-[320px] sm:w-[380px] p-6 rounded-3xl space-y-4 shadow-md flex-shrink-0 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex text-amber-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-brand-cream/90 text-sm font-light italic leading-relaxed">
+                                "Pedí un diseño personalizado para aniversario y la entrega fue muy puntual. Se nota la dedicación que le ponen a cada arreglo. Súper recomendado."
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-rose/20 flex items-center justify-between text-xs">
+                            <span class="font-bold text-white">Carlos M.</span>
+                            <span class="text-brand-rose font-medium"><i class="fab fa-google mr-1"></i> Google Maps</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card w-[320px] sm:w-[380px] p-6 rounded-3xl space-y-4 shadow-md flex-shrink-0 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex text-amber-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-brand-cream/90 text-sm font-light italic leading-relaxed">
+                                "La mejor florería de Zapopan sin duda. La atención por WhatsApp fue muy amable y rápida, me ayudaron a armar el regalo perfecto con mi presupuesto."
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-rose/20 flex items-center justify-between text-xs">
+                            <span class="font-bold text-white">Sofía L.</span>
+                            <span class="text-brand-rose font-medium"><i class="fab fa-google mr-1"></i> Google Maps</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card w-[320px] sm:w-[380px] p-6 rounded-3xl space-y-4 shadow-md flex-shrink-0 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex text-amber-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-brand-cream/90 text-sm font-light italic leading-relaxed">
+                                "El arreglo superó totalmente mis expectativas. Las flores duraron muchísimo tiempo frescas y el diseño estilo coreano es hermoso. ¡Excelente servicio!"
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-rose/20 flex items-center justify-between text-xs">
+                            <span class="font-bold text-white">Alejandra R.</span>
+                            <span class="text-brand-rose font-medium"><i class="fab fa-google mr-1"></i> Google Maps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. LOCATION MAP SECTION -->
+        <section id="ubicacion" class="py-16 bg-brand-wine/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-rose">Visítanos o Solicita a Domicilio</span>
+                    <h2 class="heading-serif text-3xl sm:text-4xl font-normal text-white">¿Dónde estamos ubicados?</h2>
+                    <div class="w-12 h-0.5 bg-brand-rose mx-auto"></div>
+                    <p class="text-brand-cream/80 text-sm sm:text-base pt-1 font-light">
+                        Camino Antiguo a Tesistán #23, casi esquina con Av. Guadalajara, Zapopan, Jalisco.
+                    </p>
+                </div>
+
+                <div class="glass-card p-4 sm:p-6 rounded-3xl shadow-xl max-w-4xl mx-auto border border-brand-rose/30">
+                    <div class="w-full h-[380px] rounded-2xl overflow-hidden shadow-inner border border-brand-rose/20">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=20.755926609743813,-103.4356581123573&z=17&output=embed" 
+                            class="w-full h-full border-0" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    
+                    <div class="mt-5 flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                        <div class="flex items-center gap-3 text-brand-cream text-sm">
+                            <i class="fas fa-location-dot text-brand-rose text-lg"></i>
+                            <span class="font-light">Camino Antiguo a Tesistán #23, casi esq. con Av. Guadalajara</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://maps.google.com/?q=20.755926609743813,-103.4356581123573" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2.5 rounded-full transition-all text-xs flex items-center gap-2 shadow-sm">
+                                <i class="fab fa-google"></i>
+                                <span>Google Maps</span>
+                            </a>
+                            <a href="https://waze.com/ul?ll=20.755926609743813,-103.4356581123573&navigate=yes" target="_blank" rel="noopener noreferrer" class="bg-sky-500 hover:bg-sky-600 text-white font-medium px-4 py-2.5 rounded-full transition-all text-xs flex items-center gap-2 shadow-sm">
+                                <i class="fas fa-location-arrow"></i>
+                                <span>Waze</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. ORDER FORM & WHATSAPP -->
+        <section id="pedidos" class="py-16 lg:py-24 relative">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="bg-brand-wine/90 backdrop-blur-md rounded-3xl p-6 sm:p-10 shadow-2xl border border-brand-rose/30 relative overflow-hidden">
+                    
+                    <div class="text-center max-w-xl mx-auto mb-8 space-y-2">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-500/30">
+                            <i class="fab fa-whatsapp text-sm text-emerald-400"></i> Envío directo por WhatsApp
+                        </span>
+                        <h2 class="heading-serif text-3xl font-normal text-white">Formulario de Pedido</h2>
+                        <p class="text-xs sm:text-sm text-brand-rose font-light">Cuéntanos sobre tu regalo y diseñaremos la opción ideal para ti.</p>
+                    </div>
+
+                    <form id="whatsappForm" onsubmit="sendToWhatsApp(event)" class="space-y-5">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="nombre" class="block text-xs font-bold text-brand-rose uppercase tracking-wider mb-2">Tu Nombre Completo *</label>
+                                <input type="text" id="nombre" required placeholder="Ej. María González" class="w-full px-4 py-3 bg-brand-wineDark border border-brand-rose/30 rounded-xl focus:ring-2 focus:ring-brand-rose focus:border-brand-rose outline-none text-white text-sm transition-all placeholder:text-brand-cream/40">
+                            </div>
+
+                            <div>
+                                <label for="producto" class="block text-xs font-bold text-brand-rose uppercase tracking-wider mb-2">Diseño de Referencia *</label>
+                                <select id="producto" required class="w-full px-4 py-3 bg-brand-wineDark border border-brand-rose/30 rounded-xl focus:ring-2 focus:ring-brand-rose focus:border-brand-rose outline-none text-white text-sm transition-all">
+                                    <option value="" class="bg-brand-wineDark text-white">-- Selecciona una opción --</option>
+                                    <option value="Tengo mi propio diseño / pedido personalizado" class="bg-brand-wineDark text-white">Tengo mi propio diseño / pedido personalizado</option>
+                                    <option value="Bouquet Sweet ($950)" class="bg-brand-wineDark text-white">Bouquet Sweet ($950)</option>
+                                    <option value="Pensé en ti ($480)" class="bg-brand-wineDark text-white">Pensé en ti ($480)</option>
+                                    <option value="Solo por Bonita ($920)" class="bg-brand-wineDark text-white">Solo por Bonita ($920)</option>
+                                    <option value="Tweedia ($780)" class="bg-brand-wineDark text-white">Tweedia ($780)</option>
+                                    <option value="Just because ($2,250)" class="bg-brand-wineDark text-white">Just because ($2,250)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="destinatario" class="block text-xs font-bold text-brand-rose uppercase tracking-wider mb-2">¿Para quién y qué ocasión es?</label>
+                                <input type="text" id="destinatario" placeholder="Ej. Para mi mamá por su cumpleaños" class="w-full px-4 py-3 bg-brand-wineDark border border-brand-rose/30 rounded-xl focus:ring-2 focus:ring-brand-rose focus:border-brand-rose outline-none text-white text-sm transition-all placeholder:text-brand-cream/40">
+                            </div>
+
+                            <div>
+                                <label for="presupuesto" class="block text-xs font-bold text-brand-rose uppercase tracking-wider mb-2">¿Cuánto quieres gastar aprox.?</label>
+                                <input type="text" id="presupuesto" placeholder="Ej. $800 - $1,200 MXN" class="w-full px-4 py-3 bg-brand-wineDark border border-brand-rose/30 rounded-xl focus:ring-2 focus:ring-brand-rose focus:border-brand-rose outline-none text-white text-sm transition-all placeholder:text-brand-cream/40">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="mensaje" class="block text-xs font-bold text-brand-rose uppercase tracking-wider mb-2">¿Cómo quieres tu arreglo? (Colores, tipo de flores o notas)</label>
+                            <textarea id="mensaje" rows="3" placeholder="Describe tonos preferidos (estilo coreano, romántico, otoñal), flores especiales o el mensaje para la tarjeta..." class="w-full p-4 bg-brand-wineDark border border-brand-rose/30 rounded-xl focus:ring-2 focus:ring-brand-rose focus:border-brand-rose outline-none text-white text-sm transition-all placeholder:text-brand-cream/40"></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3 text-sm uppercase tracking-wider">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                                <span>Enviar Pedido por WhatsApp</span>
+                            </button>
+                            <p class="text-[11px] text-brand-rose text-center mt-3">Atención personalizada y directa vía WhatsApp</p>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 8. FOOTER SECTION (CAMBIADO A COLOR TINTO / BURGUNDY) -->
+    <footer id="contacto" class="bg-brand-wineDark text-brand-cream pt-16 pb-12 border-t border-brand-rose/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-brand-rose/20">
+                
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full overflow-hidden border border-brand-rose/40 bg-brand-wine p-0.5">
+                            <img src="logo.png?v=1" alt="Logo Flora Atelier Footer" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='logo.jpg';">
+                        </div>
+                        <span class="heading-serif font-bold text-2xl text-white tracking-wider">FLORA ATELIER</span>
+                    </div>
+                    <p class="text-brand-cream/80 text-sm leading-relaxed max-w-md font-light">
+                        Taller floral en Camino Antiguo a Tesistán #23, casi esq. con Av. Guadalajara, Zapopan. Cada ramo es hecho a mano, con amor y diseño.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2.5 pt-2">
+                        <a href="https://www.facebook.com/Florista.Flora.Atelier" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-brand-wine hover:bg-brand-rose hover:text-brand-wineDark flex items-center justify-center transition-colors text-white border border-brand-rose/20" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/flora_atelier_/" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-brand-wine hover:bg-brand-rose hover:text-brand-wineDark flex items-center justify-center transition-colors text-white border border-brand-rose/20" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@flora.atelier0" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-brand-wine hover:bg-brand-rose hover:text-brand-wineDark flex items-center justify-center transition-colors text-white border border-brand-rose/20" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/523321726407" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-brand-wine hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-colors text-white border border-brand-rose/20" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-xs uppercase tracking-widest text-brand-rose">Enlaces Rápidos</h4>
+                    <ul class="space-y-2.5 text-sm font-light text-brand-cream/80">
+                        <li><a href="#inicio" class="hover:text-white transition-colors">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-white transition-colors">¿Quiénes somos?</a></li>
+                        <li><a href="#flores" class="hover:text-white transition-colors">Flores & Estilos</a></li>
+                        <li><a href="#catalogo" class="hover:text-white transition-colors">Nuestro Trabajo</a></li>
+                        <li><a href="#reseñas" class="hover:text-white transition-colors">Reseñas</a></li>
+                        <li><a href="#ubicacion" class="hover:text-white transition-colors">Ubicación</a></li>
+                        <li><a href="#pedidos" class="hover:text-white transition-colors">Hacer Pedido</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-xs uppercase tracking-widest text-brand-rose">Atención al Cliente</h4>
+                    <ul class="space-y-3 text-sm font-light text-brand-cream/80">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope text-brand-rose text-base mt-0.5"></i>
+                            <div>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Correo Electrónico:</p>
+                                <a href="mailto:atencion@flora-atelier.com" class="text-white hover:text-brand-rose font-medium text-xs">atencion@flora-atelier.com</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fab fa-whatsapp text-emerald-400 text-base mt-0.5"></i>
+                            <div>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Atención Directa:</p>
+                                <a href="https://wa.me/523321726407" target="_blank" rel="noopener" class="text-white hover:text-emerald-300 font-medium">Chat de WhatsApp</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock text-brand-rose text-base mt-0.5"></i>
+                            <div>
+                                <p class="text-xs text-brand-rose uppercase tracking-wider">Horario de Atención:</p>
+                                <p class="text-white">Lunes a Viernes: 10:00 AM - 6:00 PM<br>Sábado: 10:00 AM - 2:00 PM<br>Domingo: Cerrado</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 text-center text-xs text-brand-rose flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p>&copy; Flora Atelier. Todos los derechos reservados. Since 2018.</p>
+                <p class="text-brand-cream/60 uppercase tracking-wider">Zapopan, Jalisco &bull; Taller Floral</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JS Script -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        function selectProduct(productName) {
+            const selectElement = document.getElementById('producto');
+            if (selectElement) {
+                selectElement.value = productName;
+            }
+
+            document.getElementById('pedidos').scrollIntoView({ behavior: 'smooth' });
+
+            const formContainer = document.querySelector('#pedidos > div');
+            formContainer.classList.add('ring-4', 'ring-brand-rose/40');
+            setTimeout(() => {
+                formContainer.classList.remove('ring-4', 'ring-brand-rose/40');
+            }, 1200);
+        }
+
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const producto = document.getElementById('producto').value;
+            const destinatario = document.getElementById('destinatario').value.trim();
+            const presupuesto = document.getElementById('presupuesto').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+
+            const phoneNumber = '523321726407';
+
+            let textMessage = `*NUEVO PEDIDO - FLORA ATELIER*\n\n`;
+            textMessage += `*Nombre del cliente:* ${nombre}\n`;
+            textMessage += `*Diseño / Opción:* ${producto}\n`;
+
+            if (destinatario) {
+                textMessage += `*Para / Ocasión:* ${destinatario}\n`;
+            }
+
+            if (presupuesto) {
+                textMessage += `*Presupuesto aproximado:* ${presupuesto}\n`;
+            }
+
+            if (mensaje) {
+                textMessage += `\n*Detalles y especificaciones:*\n"${mensaje}"\n`;
+            } else {
+                textMessage += `\n*Detalles:* Sin especificaciones adicionales\n`;
+            }
+
+            textMessage += `\n_Mensaje enviado desde la página web de Flora Atelier._`;
+
+            const encodedMessage = encodeURIComponent(textMessage);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
